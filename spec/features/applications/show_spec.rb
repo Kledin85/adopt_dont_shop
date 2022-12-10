@@ -30,9 +30,13 @@ RSpec.describe 'application show' do
       visit "/applications/#{application_2.id}"
       
       fill_in 'search', with: 'Scooby'
+
+      # save_and_open_page
       click_button('Add a Pet to this Application')
-      save_and_open_page
+      
       expect(page).to have_button("Adopt this Pet")
+      click_button('Adopt this Pet')
+      expect(current_path).to eq("/applications/#{application_2.id}")
       expect(application_2.pet_names).to eq("Scooby")
 
     end
